@@ -1,0 +1,9 @@
+<div class="search-container">
+  <input type="text" placeholder="Search for a song..." [(ngModel)]="searchQuery" (keyup.enter)="search()">
+  <button (click)="search()">Search</button>
+</div>
+<div class="search-results">
+  <div *ngFor="let track of searchResults">
+    <p>{{ track.name }} - {{ track.artists[0].name }}</p>
+  </div>
+</div>

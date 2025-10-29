@@ -1,0 +1,23 @@
+<div class="player-container">
+  <div class="top-buttons">
+    <button class="btn-back">back</button>
+    <button class="btn-bars">bars</button>
+  </div>
+  <div class="player-content">
+    <div class="album-art">
+      <img src="https://via.placeholder.com/150" alt="Album Art">
+    </div>
+    <div class="song-info">
+      <div class="song-title">{{ currentTrack ? currentTrack.name : 'No song selected' }}</div>
+      <div class="artist-name">{{ currentTrack ? currentTrack.artists[0].name : '' }}</div>
+    </div>
+    <div class="progress-bar">
+      <input type="range" min="0" max="100" value="25">
+    </div>
+    <div class="controls">
+      <button class="btn-last" (click)="previous()">last</button>
+      <button class="btn-play" (click)="play()">Play</button>
+      <button class="btn-forward" (click)="next()">forward</button>
+    </div>
+  </div>
+</div>

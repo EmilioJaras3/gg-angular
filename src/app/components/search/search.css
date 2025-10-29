@@ -1,0 +1,23 @@
+.search-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+  background-color: #0f2027;
+  z-index: 1000;
+}
+
+.search-container input {
+  width: 100%;
+  padding: 15px;
+  border-radius: 30px;
+  border: none;
+  font-size: 16px;
+}
+
+.search-results {
+  margin-top: 80px; /* To account for the fixed search bar */
+  padding: 20px;
+  color: white;
+}
