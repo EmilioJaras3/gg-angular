@@ -14,19 +14,34 @@ export class Search {
   searchResults: any[] = [];
   searchQuery: string = '';
   audio: HTMLAudioElement | null = null;
+  loading = false;
+  errorMsg = '';
 
   constructor(private spotifyService: Spotify, private playlistService: Playlist) {}
 
   search() {
-    console.log('[search] query=', this.searchQuery);
-    this.spotifyService.searchTracks(this.searchQuery).subscribe({
+    const q = (this.searchQuery || '').trim();
+    if (!q) {
+      this.searchResults = [];
+      this.errorMsg = '';
+      return;
+    }
+    this.loading = true;
+    this.errorMsg = '';
+    this.spotifyService.searchTracks(q).subscribe({
       next: (data: any) => {
-        console.log('[search] response', data && data.tracks && data.tracks.items && data.tracks.items.length);
-        this.searchResults = (data && data.tracks && data.tracks.items) || [];
-        this.playlistService.updateTracklist(this.searchResults);
+        const items = (data && data.tracks && data.tracks.items) || [];
+        this.searchResults = items;
+        this.playlistService.updateTracklist(items);
+        this.loading = false;
+        if (!items.length) {
+          this.errorMsg = 'Sin resultados';
+        }
       },
       error: (err: any) => {
-        console.error('[search] error', err);
+        this.loading = false;
+        this.searchResults = [];
+        this.errorMsg = (err && (err.error?.error || err.message)) || 'Error al buscar';
       }
     });
   }
