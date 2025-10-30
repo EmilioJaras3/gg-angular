@@ -1,59 +1,36 @@
-# Gg
+## App de música con búsqueda de Spotify
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.7.
+Características:
+- Barra de búsqueda fija (sticky).
+- Búsqueda de canciones en Spotify mediante un proxy local.
+- Lista de resultados y reproductor con controles de anterior/siguiente/pausa.
+- Renovación automática del token App de Spotify (Client Credentials) en el servidor.
 
-## Development server
+### Requisitos
+- Node 18+.
+- Cuenta de Spotify Developer para obtener `CLIENT_ID` y `CLIENT_SECRET` (App, no usuario).
 
-To start a local development server, run:
-
-```bash
-ng serve
+### Configuración
+1. Crear archivo `.env` en la raíz con:
 ```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+CLIENT_ID=tu_client_id
+CLIENT_SECRET=tu_client_secret
+API_PORT=3001
 ```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
+2. Instalar dependencias:
 ```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
+npm i
 ```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
+3. Iniciar el proxy API (renueva token automático) en un terminal:
 ```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
+npm run start:api
 ```
+4. Iniciar la app Angular en otro terminal:
+```
+npm start
+```
+La app consumirá `http://localhost:3001/api/search`.
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### Notas
+- El flujo Client Credentials permite búsqueda y previews, no reproducción completa de usuario.
+- Para reproducción completa con el Web Playback SDK se requiere OAuth Authorization Code con cuenta del usuario.
